@@ -12,17 +12,21 @@
   "homepage": "./",
   "main": "public/main.js",
   "scripts": {
+    "precommit": "precise-commits",
     "start": "cross-env BROWSER=none yarn start:all",
     "start:js": "node scripts/start.js",
     "start:all": "npm-run-all -p watch:css start:js",
     "build": "npm-run-all build:css build:js",
     "build:js": "node scripts/build.js",
-    "build:css": "node-sass-chokidar --include-path ./src --include-path ./node_modules src/ -o src/",
-    "watch:css": "npm run build:css && node-sass-chokidar --include-path ./src --include-path ./node_modules src/ -o src/ --watch --recursive",
+    "build:css":
+      "node-sass-chokidar --include-path ./src --include-path ./node_modules src/ -o src/",
+    "watch:css":
+      "npm run build:css && node-sass-chokidar --include-path ./src --include-path ./node_modules src/ -o src/ --watch --recursive",
     "test": "node scripts/test.js --env=jsdom",
     "dist:pack": "yarn run build && yarn run electron:pack",
     "electron": "electron .",
-    "electron:dev": "concurrently \"yarn start\" \"wait-on http://localhost:3000 && yarn run electron\"",
+    "electron:dev":
+      "concurrently \"yarn start\" \"wait-on http://localhost:3000 && yarn run electron\"",
     "electron:pack": "build --em.main=build/main.js"
   },
   "build": {
@@ -30,9 +34,7 @@
     "productName": "Reacto",
     "icon": "./static/icon.png",
     "compression": "maximum",
-    "files": [
-      "build/**/*"
-    ],
+    "files": ["build/**/*"],
     "directories": {
       "buildResources": "assets"
     }
@@ -135,16 +137,14 @@
     "electron": "^1.7.10",
     "electron-builder": "^19.54.0",
     "electron-notification-state": "^1.0.4",
+    "husky": "^0.14.3",
+    "precise-commits": "^1.0.2",
     "wait-on": "^2.1.0",
     "webpack": "^3.11.0"
   },
   "jest": {
-    "collectCoverageFrom": [
-      "src/**/*.{js,jsx,mjs}"
-    ],
-    "setupFiles": [
-      "<rootDir>/config/polyfills.js"
-    ],
+    "collectCoverageFrom": ["src/**/*.{js,jsx,mjs}"],
+    "setupFiles": ["<rootDir>/config/polyfills.js"],
     "testMatch": [
       "<rootDir>/src/**/__tests__/**/*.{js,jsx,mjs}",
       "<rootDir>/src/**/?(*.)(spec|test).{js,jsx,mjs}"
@@ -154,11 +154,10 @@
     "transform": {
       "^.+\\.(js|jsx|mjs)$": "<rootDir>/node_modules/babel-jest",
       "^.+\\.css$": "<rootDir>/config/jest/cssTransform.js",
-      "^(?!.*\\.(js|jsx|mjs|css|json)$)": "<rootDir>/config/jest/fileTransform.js"
+      "^(?!.*\\.(js|jsx|mjs|css|json)$)":
+        "<rootDir>/config/jest/fileTransform.js"
     },
-    "transformIgnorePatterns": [
-      "[/\\\\]node_modules[/\\\\].+\\.(js|jsx|mjs)$"
-    ],
+    "transformIgnorePatterns": ["[/\\\\]node_modules[/\\\\].+\\.(js|jsx|mjs)$"],
     "moduleNameMapper": {
       "^react-native$": "react-native-web"
     },
@@ -173,9 +172,7 @@
     ]
   },
   "babel": {
-    "presets": [
-      "react-app"
-    ]
+    "presets": ["react-app"]
   },
   "eslintConfig": {
     "extends": "react-app"
